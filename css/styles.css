@@ -31,17 +31,25 @@ textarea {
   padding: 5px;
 }
 .testbox {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   height: inherit;
   /* padding: 20px; */
   margin-left: auto;
   margin-right: auto;
-  /* width: 50%; */
+  width: 90%;
 }
 form {
   width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  background: #fff;
+  /* box-shadow: 0 0 8px #000000; */
+}
+
+.update-form {
+  width: fit-content;
   padding: 20px;
   border-radius: 6px;
   background: #fff;
@@ -200,8 +208,22 @@ button {
   font-size: 16px;
   color: #fff;
   cursor: pointer;
-  float: right;
+  /* float: right; */
+  margin: 10px;
 }
+
+.update-button {
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #39a2db;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+}
+
 button:hover {
   background: #a3c2c2;
 }
@@ -215,7 +237,7 @@ button:hover {
   font-size: 16px;
   color: #fff;
   cursor: pointer;
-  float: left;
+  /* float: left; */
 }
 
 @media (min-width: 568px) {
@@ -252,4 +274,19 @@ button:hover {
   margin-right: auto;
   margin-top: 90px;
   /* box-shadow: 0 0 8px #000000; */
+}
+
+.button-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 50%; */
+}
+
+.three-buttons {
+  text-align: center;
 }

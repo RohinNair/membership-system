@@ -1,7 +1,12 @@
+<?php 
+include('../db/db.php');
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Member Registration</title>
+    <title>New User Registration</title>
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
       rel="stylesheet"
@@ -14,32 +19,84 @@
     />
     <link rel="stylesheet" href="../css/styles.css">
   </head>
+  <?php
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+if(isset($_POST['save'])){
+
+  if(!empty($_POST['user_id']) && !empty($_POST['user_password']) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['country']) && !empty($_POST['state']) && !empty($_POST['city']) && !empty($_POST['phone_no'])) {
+  
+    $user_id = test_input($_POST['user_id']);
+    $user_password = md5(trim($_POST['user_password']));
+    $first_name = test_input($_POST['first_name']);
+    $last_name =test_input($_POST['last_name']);
+    $email = test_input($_POST['email']);
+    $country = test_input($_POST['country']);
+    $state = test_input($_POST['state']);
+    $city = test_input($_POST['city']);
+    $phone_no = test_input($_POST['phone_no']);
+
+    
+  
+    $query = "INSERT INTO users (user_id, user_password, first_name, last_name, email, country, state, city, phone_no) VALUES ( '$user_id', '$user_password', '$first_name', '$last_name', '$email', '$country', '$state', '$city', '$phone_no')";
+  
+    $run = mysqli_query($conn, $query) or die(mysqli_error($conn));
+  
+    if($run) {
+      echo '<script type="text/javascript">'; 
+      echo 'alert("New record created successfully");'; 
+      // echo 'window.location.href = "newuser.php";';
+      echo '</script>';
+    }
+    else {
+      echo '<script type="text/javascript">'; 
+      echo 'alert("Form not submitted");'; 
+      // echo 'window.location.href = "newuser.php";';
+      echo '</script>';
+    }
+  
+  }
+  else {
+    echo '<script type="text/javascript">'; 
+    echo 'alert("All Fields required");'; 
+      // echo 'window.location.href = "newuser.php";';
+    echo '</script>';
+  }
+  
+  }
+
+?>
  
   <body>
     <div class="content">
   <div class="banner">
-          <h1>New Member Registration</h1>
+          <h1>New User Registration</h1>
         </div>
     <div class="testbox">
-      <form action="insert.php" method="post">
+      <form action="newuser.php" method="post">
         
         <div class="colums">
-        <div class="item">
-            <label for="user_id">Your User ID<span>*</span></label>
+          <div class="item">
+            <label for="first_name">First Name<span>*</span></label>
+            <input id="first_name" type="text" name="first_name" pattern="^[A-Za-z]+$" required />
+          </div>
+          <div class="item">
+            <label for="last_name">Last Name<span>*</span></label>
+            <input id="last_name" type="text" name="last_name" pattern="^[A-Za-z]+$" required />
+          </div>
+          <div class="item">
+            <label for="user_id">Your Username<span>*</span></label>
             <input id="user_id" type="text" name="user_id" required />
           </div>
           <div class="item">
             <label for="user_password">Your Password<span>*</span></label>
-            <input id="user_password" type="password" name="user_password" required />
-          </div>
-          <div class="item">
-            <label for="first_name"> First Name<span>*</span></label>
-            <input id="first_name" type="text" name="first_name" required />
-          </div>
-          <div class="item">
-            <label for="last_name"> Last Name<span>*</span></label>
-            <input id="last_name" type="text" name="last_name" required />
+            <input id="user_password" type="password" name="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
           </div>
           <div class="item">
             <label for="email">Email Address<span>*</span></label>
@@ -311,23 +368,22 @@
           </div>
           <div class="item">
             <label for="state">State<span>*</span></label>
-            <input id="state" type="text" name="state" required />
+            <input id="state" type="text" name="state" pattern="^[A-Za-z\s]+$" required />
           </div>
           <div class="item">
             <label for="city">City<span>*</span></label>
-            <input id="city" type="text" name="city" required />
+            <input id="city" type="text" name="city" pattern="^[A-Za-z\s]+$" required />
           </div>
 
           <div class="item">
             <label for="phone_no">Phone<span>*</span></label>
-            <input id="phone_no" type="tel" name="phone_no" required />
+            <input id="phone_no" type="tel" name="phone_no" pattern="[0-9]+" required />
           </div>
         </div>
+        <div class="three-buttons">
         <input type="reset" value="Reset" class="btn-reset">
         <button type="submit" name="save">Submit</button>
-        <!-- <div class="btn-block">
-          
-        </div> -->
+        </div>
       </form>
     </div>
     </div>
